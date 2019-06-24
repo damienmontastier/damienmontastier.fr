@@ -2,7 +2,10 @@
   <section class="container">
     <!-- <Loading></Loading> -->
     <div id="about">
-      <p>Hey! I'm Damien currently learning Creative Developpement at Gobelins Paris</p>
+      <p>
+        Hey! I'm Damien
+        <span v-html="emoji"></span> currently learning Creative Developpement at Gobelins
+      </p>
     </div>
     <div ref="content" id="content">
       <div class="part" id="projects">
@@ -39,8 +42,36 @@ export default {
   components: {
     Loading
   },
+  data() {
+    return {
+      emojies: [
+        "&#8986",
+        "&#9995",
+        "&#127378",
+        "&#127828",
+        "&#127829",
+        "&#128113",
+        "&#128187",
+        "&#128284",
+        "&#128406",
+        "&#128421",
+        "&#128513",
+        "&#128640",
+        "&#128745",
+        "&#129300",
+        "&#129305"
+      ],
+      emoji: "&#8986"
+    };
+  },
   mounted() {
     window.addEventListener("mousemove", this.handleMouseMove.bind(this));
+
+    setInterval(() => {
+      this.emoji = this.emojies[
+        Math.floor(Math.random() * this.emojies.length - 1) + 1
+      ];
+    }, 100);
   },
   methods: {
     handleMouseMove(event) {
@@ -69,6 +100,12 @@ $margin: 50px;
 .container {
   min-height: 100vh;
 
+  #about {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    max-width: 420px;
+  }
   #content {
     position: absolute;
     right: 20%;
