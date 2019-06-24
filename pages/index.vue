@@ -1,39 +1,61 @@
 <template>
   <section class="container">
     <!-- <Loading></Loading> -->
-    <div id="about">
-      <div id="top">
-        <p>Hey, my name is Damien. I studying actually at Gobelins l'Ecole de l'image in Interactive Dévelopement.</p>
-      </div>
-      <div id="bottom">
-        <p>Hey, my name is Damien. I studying actually at Gobelins l'Ecole de l'image in Interactive Dévelopement.</p>
-      </div>
-    </div>
-    <div id="content_informations">
+    <div ref="content" id="content">
       <div class="part" id="projects">
-        <h5>Somes projects</h5>
-        <ul>
-          <li></li>
+        <h5>Projects</h5>
+        <ul ref="projects">
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
         </ul>
       </div>
-
-      <div class="part" id="contacts">
-        <h5>Contact</h5>
+      <div class="part" id="codepens">
+        <h5>Codepens</h5>
+        <ul ref="codepens">
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+          <li>Momo & Romo</li>
+        </ul>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-// import AppLogo from '~/components/AppLogo.vue'
 import Loading from "~/components/Loading.vue";
+import TweenMax from "gsap";
 
 //Netlify CMS pour gérer le contenu ?
 
 export default {
   components: {
-    // AppLogo
     Loading
+  },
+  mounted() {
+    window.addEventListener("mousemove", this.handleMouseMove.bind(this));
+  },
+  methods: {
+    handleMouseMove(event) {
+      setInterval(this.calcSpeed, 1000);
+
+      console.log(Date.now());
+      console.log(event.clientY);
+      TweenMax.to(this.$refs.content, 3, {
+        y: -event.clientY,
+        ease: Power4.easeOut
+      });
+      console.log(this.$refs);
+      TweenMax.to(this.$refs.projects.children, 3, {
+        scaleY: event.clientY / 200,
+        ease: Power4.easeOut
+      });
+    },
+    calcSpeed() {}
   }
 };
 </script>
@@ -43,19 +65,12 @@ $margin: 50px;
 
 .container {
   min-height: 100vh;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // text-align: center;
-  margin: 10% 10%;
-  #content_informations {
+
+  #content {
     position: absolute;
-    // right: 10%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    text-align: right;
+    right: 20%;
+    top: 30%;
+    max-width: 720px;
     .part {
       margin: $margin 0 $margin 0;
       &:first-of-type {
@@ -64,6 +79,20 @@ $margin: 50px;
         margin: $margin 0 0 0;
       }
     }
+    h5 {
+      text-align: left;
+    }
+    ul {
+      padding-left: 50px;
+      li {
+        margin: 20px 0;
+        font-size: 40px;
+        &:last-child {
+          margin: 20px 0 0 0;
+        }
+      }
+    }
+
     #projects {
     }
     #experiences {

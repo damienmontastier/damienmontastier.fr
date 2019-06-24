@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <nuxt/>
     <div ref="cursor" id="cursor"></div>
   </div>
