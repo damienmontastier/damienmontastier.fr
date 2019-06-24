@@ -1,6 +1,9 @@
 <template>
   <section class="container">
     <!-- <Loading></Loading> -->
+    <div id="about">
+      <p>Hey! I'm Damien currently learning Creative Developpement at Gobelins Paris</p>
+    </div>
     <div ref="content" id="content">
       <div class="part" id="projects">
         <h5>Projects</h5>
@@ -46,14 +49,14 @@ export default {
       console.log(Date.now());
       console.log(event.clientY);
       TweenMax.to(this.$refs.content, 3, {
-        y: -event.clientY,
+        y: -event.clientY / 2,
         ease: Power4.easeOut
       });
-      console.log(this.$refs);
-      TweenMax.to(this.$refs.projects.children, 3, {
-        scaleY: event.clientY / 200,
-        ease: Power4.easeOut
-      });
+      // console.log(this.$refs);
+      // TweenMax.to(this.$refs.projects.children, 3, {
+      //   scaleY: event.clientY / 200,
+      //   ease: Power4.easeOut
+      // });
     },
     calcSpeed() {}
   }
@@ -69,7 +72,7 @@ $margin: 50px;
   #content {
     position: absolute;
     right: 20%;
-    top: 30%;
+    top: 20%;
     max-width: 720px;
     .part {
       margin: $margin 0 $margin 0;
@@ -81,6 +84,16 @@ $margin: 50px;
     }
     h5 {
       text-align: left;
+      text-transform: uppercase;
+      display: inline-flex;
+      position: relative;
+      &::after {
+        content: "3";
+        position: absolute;
+        right: -10px;
+        top: -10px;
+        // background: red;
+      }
     }
     ul {
       padding-left: 50px;
