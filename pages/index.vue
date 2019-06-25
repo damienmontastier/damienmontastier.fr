@@ -67,11 +67,7 @@ export default {
   mounted() {
     window.addEventListener("mousemove", this.handleMouseMove.bind(this));
 
-    setInterval(() => {
-      this.emoji = this.emojies[
-        Math.floor(Math.random() * this.emojies.length - 1) + 1
-      ];
-    }, 100);
+    this.timerEmojy = setInterval(this.changeEmojy, 250);
   },
   methods: {
     handleMouseMove(event) {
@@ -89,7 +85,16 @@ export default {
       //   ease: Power4.easeOut
       // });
     },
-    calcSpeed() {}
+    calcSpeed() {},
+    changeEmojy() {
+      this.emoji = this.emojies[
+        Math.floor(Math.random() * this.emojies.length - 1) + 1
+      ];
+    }
+  },
+  beforeDestroy() {
+    window.removeEventListener("mousemove", this.handleMouseMove.bind(this));
+    clearInterval(this.timerEmojy);
   }
 };
 </script>
@@ -127,9 +132,8 @@ $margin: 50px;
       &::after {
         content: "3";
         position: absolute;
-        right: -10px;
+        right: -15px;
         top: -10px;
-        // background: red;
       }
     }
     ul {
