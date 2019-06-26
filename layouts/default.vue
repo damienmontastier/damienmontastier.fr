@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <nuxt/>
+    <webgl></webgl>
     <div ref="cursor" id="cursor"></div>
   </div>
 </template>
@@ -8,8 +9,13 @@
 
 <script>
 import TweenMax from "gsap";
+import webgl from "@/components/webgl";
 
 export default {
+  components: {
+    webgl
+  },
+
   data() {
     return {
       cursor: null,

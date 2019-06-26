@@ -10,7 +10,11 @@
       </div>
       <div id="bottom">
         <p>Looking for study contract 2019 - 2021.</p>
-        <p>Previously at @uzful, @kryzalid</p>
+        <p>
+          Previously at
+          <a target="_blank" href="https://uzful.fr">@uzful</a>,
+          <a target="_blank" href="https://kryzalid.net">@kryzalid</a>
+        </p>
       </div>
     </div>
     <div ref="content" id="content">
@@ -68,7 +72,8 @@ export default {
         "&#129305"
       ],
       emoji: "&#8986",
-      contentBoxParams: {}
+      contentBoxParams: {},
+      speed: {}
     };
   },
   mounted() {
@@ -96,7 +101,8 @@ export default {
   methods: {
     test() {
       console.log("yeah");
-      //clear coordonées X and Y
+      this.test.a = 0;
+      this.test.b = 0;
     },
     handleMouseMove(event) {
       let topMax = Math.max(-this.contentBoxParams.top, event.clientY / 2);
