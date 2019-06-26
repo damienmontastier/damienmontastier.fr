@@ -45,6 +45,7 @@
 <script>
 import Loading from "~/components/Loading.vue";
 import TweenMax from "gsap";
+import { EventBus } from "~/assets/event.js";
 
 //Netlify CMS pour gérer le contenu ?
 
@@ -89,8 +90,8 @@ export default {
 
     Object.values(this.links).forEach(ul => {
       Object.values(ul).forEach(li => {
-        // li.addEventListener("mouseover", this.handleMouseHover.bind(this, li));
-        // li.addEventListener("mouseout", this.handleMouseOut.bind(this, li));
+        li.addEventListener("mouseover", this.handleMouseHover.bind(this, li));
+        li.addEventListener("mouseout", this.handleMouseOut.bind(this, li));
       });
     });
 
@@ -119,12 +120,13 @@ export default {
       });
     },
     handleMouseHover(li) {
-      TweenMax.to(li, 1, {
-        scaleX: 1.05,
-        scaleY: 5,
-        height: "auto",
-        ease: Power4.easeOut
-      });
+      EventBus.$emit("mapPlane");
+      // TweenMax.to(li, 1, {
+      //   scaleX: 1.05,
+      //   scaleY: 5,
+      //   height: "auto",
+      //   ease: Power4.easeOut
+      // });
     },
     handleMouseOut(li) {
       TweenMax.to(li, 0.5, {
@@ -143,6 +145,7 @@ export default {
     window.removeEventListener("mousemove", this.handleMouseHover.bind(this));
     window.removeEventListener("mouseout", this.handleMouseOut.bind(this));
     clearInterval(this.interval);
+    EventBus.$off();
   }
 };
 </script>
