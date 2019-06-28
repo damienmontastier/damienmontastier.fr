@@ -8,14 +8,14 @@
           <span v-html="emoji"></span> currently learning Creative Developpement at Gobelins
         </p>
       </div>
-      <div id="bottom">
+      <!-- <div id="bottom">
         <p>Looking for study contract 2019 - 2021.</p>
         <p>
           Previously at
           <a target="_blank" href="https://uzful.fr">@uzful</a>,
           <a target="_blank" href="https://kryzalid.net">@kryzalid</a>
         </p>
-      </div>
+      </div>-->
     </div>
     <div ref="content" id="content">
       <div class="part" id="projects">
@@ -74,11 +74,13 @@ export default {
       ],
       emoji: "&#8986",
       contentBoxParams: {},
-      speed: {}
+      speed: {},
+      timestamp: 0,
+      mY: 0
     };
   },
   mounted() {
-    this.interval = setInterval(this.test.bind(this), 1000);
+    this.interval = setInterval(this.fftest.bind(this), 1000);
     this.contentBoxParams = this.$refs.content.getBoundingClientRect();
 
     this.projects = this.$refs.projects;
@@ -100,15 +102,31 @@ export default {
     this.timerEmojy = setInterval(this.changeEmojy, 250);
   },
   methods: {
-    test() {
-      console.log("yeah");
-      this.test.a = 0;
-      this.test.b = 0;
+    fftest() {
+      console.log("clear");
     },
     handleMouseMove(event) {
+      var mrefreshinterval = 500; // update display every 500ms
+      var lastmousex = -1;
+      var lastmousey = -1;
+      var lastmousetime;
+      var mousetravel = 0;
+
+      var mousex = event.clientX;
+      var mousey = event.pageY;
+      if (lastmousex > -1)
+        mousetravel += Math.max(
+          Math.abs(mousex - lastmousex),
+          Math.abs(mousey - lastmousey)
+        );
+      lastmousex = mousex;
+      lastmousey = mousey;
+
+      console.log(mousetravel);
+
       let topMax = Math.max(-this.contentBoxParams.top, event.clientY / 2);
-      TweenMax.to(this.$refs.content, 3, {
-        y: -topMax,
+      TweenMax.to(this.$refs.content, 2.5, {
+        y: -topMax / 2,
         ease: Power4.easeOut
       });
       Object.values(this.links).forEach(ul => {
@@ -166,6 +184,14 @@ $margin: 80px;
       position: absolute;
       top: 0;
       left: 0;
+      span {
+        min-width: 40px;
+        width: 40px;
+        display: inline-block;
+        height: 30px;
+        min-height: 30px;
+        text-align: center;
+      }
     }
     #bottom {
       position: absolute;

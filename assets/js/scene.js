@@ -5,11 +5,11 @@ import {
   TweenMax
 } from 'gsap';
 
-var vertexShader = require('../glsl/vertex.glsl');
-var fragmentShader = require("../glsl/fragment.glsl");
+// var vertexShader = require('../glsl/vertex.glsl');
+// var fragmentShader = require("../glsl/fragment.glsl");
 
-console.log('gfdgfd ', fragmentShader)
-console.log('gfdgfd ', vertexShader)
+const vertexShader = require("../glsl/vertex.vs");
+// var vertexShader = require("@/assets/glsl/vertex.vs");
 
 export default class Scene {
   constructor() {
