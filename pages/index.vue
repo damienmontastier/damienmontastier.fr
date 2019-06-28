@@ -21,11 +21,11 @@
       <div class="part" id="projects">
         <h5>Projects</h5>
         <ul ref="projects">
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
+          <li data-img="https://picsum.photos/500">Momo & Romo</li>
+          <li data-img="https://picsum.photos/500">Momo & Romo</li>
+          <li data-img="https://picsum.photos/500">Momo & Romo</li>
+          <li data-img="https://picsum.photos/500">Momo & Romo</li>
+          <li data-img="https://picsum.photos/500">Momo & Romo</li>
         </ul>
       </div>
       <div class="part" id="codepens">
@@ -106,24 +106,6 @@ export default {
       console.log("clear");
     },
     handleMouseMove(event) {
-      var mrefreshinterval = 500; // update display every 500ms
-      var lastmousex = -1;
-      var lastmousey = -1;
-      var lastmousetime;
-      var mousetravel = 0;
-
-      var mousex = event.clientX;
-      var mousey = event.pageY;
-      if (lastmousex > -1)
-        mousetravel += Math.max(
-          Math.abs(mousex - lastmousex),
-          Math.abs(mousey - lastmousey)
-        );
-      lastmousex = mousex;
-      lastmousey = mousey;
-
-      console.log(mousetravel);
-
       let topMax = Math.max(-this.contentBoxParams.top, event.clientY / 2);
       TweenMax.to(this.$refs.content, 2.5, {
         y: -topMax / 2,
@@ -138,7 +120,7 @@ export default {
       });
     },
     handleMouseHover(li) {
-      EventBus.$emit("mapPlane");
+      EventBus.$emit("mapPlane", li.getAttribute("data-img"));
       // TweenMax.to(li, 1, {
       //   scaleX: 1.05,
       //   scaleY: 5,

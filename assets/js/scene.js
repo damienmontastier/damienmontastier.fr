@@ -4,15 +4,19 @@ import OrbitControls from 'orbit-controls-es6';
 import {
   TweenMax
 } from 'gsap';
-
-// var vertexShader = require('../glsl/vertex.glsl');
-// var fragmentShader = require("../glsl/fragment.glsl");
-
-const vertexShader = require("../glsl/vertex.vs");
-// var vertexShader = require("@/assets/glsl/vertex.vs");
+import {
+  EventBus
+} from "~/assets/event.js";
 
 export default class Scene {
   constructor() {
+    EventBus.$on("mapPlane", this.mapPlane.bind(this));
+
+    if (process.browser) {
+      this.vertexShader = require("@/assets/glsl/vertex.vs");
+      this.fragmentShader = require("@/assets/glsl/fragment.fs");
+    }
+
     //Setup Camera
     this.camera = new THREE.PerspectiveCamera(
       40,
@@ -20,6 +24,7 @@ export default class Scene {
       0.1,
       1000
     );
+
     this.camera.position.z = 50;
     this.camera.position.x = 15;
 
@@ -63,6 +68,9 @@ export default class Scene {
   render() {
     this.renderer.render(this.scene, this.camera);
   }
+  mapPlane(texture) {
+    console.log(texture)
+  }
 }
 
 class Sphere extends THREE.Object3D {
@@ -75,11 +83,11 @@ class Sphere extends THREE.Object3D {
       side: THREE.DoubleSide,
       wireframe: true
     });
-    // this.material = new THREE.ShaderMaterial({
-    //   vertexShader: document.getElementById("vertexShader").textContent,
-    //   fragmentShader: document.getElementById("fragmentShader").textContent
-    // });
-    var plane = new THREE.Mesh(geometry, material);
+    this.material = new THREE.ShaderMaterial({
+      vertexShader: this.vertexShader,
+      fragmentShader: this.fragmentShader
+    });
+    var plane = new THREE.Mesh(geometry, this.material);
     this.add(plane);
   }
 }
