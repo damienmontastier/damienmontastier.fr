@@ -21,21 +21,21 @@
       <div class="part" id="projects">
         <h5>Projects</h5>
         <ul ref="projects">
-          <li data-img="https://picsum.photos/500">Momo & Romo</li>
-          <li data-img="https://picsum.photos/500">Momo & Romo</li>
-          <li data-img="https://picsum.photos/500">Momo & Romo</li>
-          <li data-img="https://picsum.photos/500">Momo & Romo</li>
-          <li data-img="https://picsum.photos/500">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
         </ul>
       </div>
       <div class="part" id="codepens">
         <h5>Codepens</h5>
         <ul ref="codepens">
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
-          <li>Momo & Romo</li>
+          <li data-img="https://picsum.photos/256ok">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li>
         </ul>
       </div>
     </div>

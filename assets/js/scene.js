@@ -10,12 +10,6 @@ import {
 
 export default class Scene {
   constructor() {
-    EventBus.$on("mapPlane", this.mapPlane.bind(this));
-
-    if (process.browser) {
-      this.vertexShader = require("@/assets/glsl/vertex.vs");
-      this.fragmentShader = require("@/assets/glsl/fragment.fs");
-    }
 
     //Setup Camera
     this.camera = new THREE.PerspectiveCamera(
@@ -37,9 +31,9 @@ export default class Scene {
     // axes
     this.scene.add(new THREE.AxesHelper(20))
 
-    let sphere = new Sphere()
+    this.sphere = new Sphere()
 
-    this.scene.add(sphere)
+    this.scene.add(this.sphere)
 
     var axesHelper = new THREE.AxesHelper(5);
     this.scene.add(axesHelper);
@@ -66,28 +60,59 @@ export default class Scene {
   }
 
   render() {
+    this.time = performance.now()
+
+    this.sphere.update(this.time)
+
     this.renderer.render(this.scene, this.camera);
   }
-  mapPlane(texture) {
-    console.log(texture)
-  }
+
 }
 
 class Sphere extends THREE.Object3D {
   constructor() {
     super()
 
-    var geometry = new THREE.PlaneBufferGeometry(20, 20, 32);
-    var material = new THREE.MeshBasicMaterial({
-      color: 0xff0000,
-      side: THREE.DoubleSide,
-      wireframe: true
-    });
-    this.material = new THREE.ShaderMaterial({
+    this.time = 0;
+    this.clock = new THREE.Clock();
+    
+    if (process.browser) {
+      this.vertexShader = require("@/assets/glsl/vertex.vs");
+      this.fragmentShader = require("@/assets/glsl/fragment.fs");
+    }
+
+    EventBus.$on("mapPlane", this.mapPlane.bind(this));
+
+    this.uniforms = {
+      time: {
+        type: "f",
+        value: 0.0
+      },
+      texture: {
+        type: "t",
+        value: null
+      },
+      resolution: {
+        value: new THREE.Vector2(
+          window.innerWidth * window.devicePixelRatio,
+          window.innerHeight * window.devicePixelRatio
+        )
+      },
+    };
+    let geometry = new THREE.PlaneBufferGeometry(20, 20, 32);
+    let material = new THREE.ShaderMaterial({
+      uniforms: this.uniforms,
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader
     });
-    var plane = new THREE.Mesh(geometry, this.material);
+    let plane = new THREE.Mesh(geometry, material);
     this.add(plane);
+  }
+  update(t) {
+    this.time = this.time + this.clock.getDelta();
+    this.uniforms.time.value = this.time
+  }
+  mapPlane(texture) {
+    this.uniforms.texture.value = new THREE.TextureLoader().load(texture);
   }
 }
