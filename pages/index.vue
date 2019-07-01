@@ -21,21 +21,21 @@
       <div class="part" id="projects">
         <h5>Projects</h5>
         <ul ref="projects">
-          <li data-img="https://picsum.photos/256">Momo & Romo</li>
-          <li data-img="https://picsum.photos/256">Momo & Romo</li>
-          <li data-img="https://picsum.photos/256">Momo & Romo</li>
-          <li data-img="https://picsum.photos/256">Momo & Romo</li>
-          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li :data-img="picture1">Momo & Romo</li>
+          <li :data-img="picture2">Momo & Romo</li>
+          <li :data-img="picture3">Momo & Romo</li>
+          <!-- <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li> -->
         </ul>
       </div>
       <div class="part" id="codepens">
         <h5>Codepens</h5>
         <ul ref="codepens">
-          <li data-img="https://picsum.photos/256ok">Momo & Romo</li>
+          <!-- <li data-img="https://picsum.photos/256">Momo & Romo</li>
           <li data-img="https://picsum.photos/256">Momo & Romo</li>
           <li data-img="https://picsum.photos/256">Momo & Romo</li>
           <li data-img="https://picsum.photos/256">Momo & Romo</li>
-          <li data-img="https://picsum.photos/256">Momo & Romo</li>
+          <li data-img="https://picsum.photos/256">Momo & Romo</li> -->
         </ul>
       </div>
     </div>
@@ -46,6 +46,12 @@
 import Loading from "~/components/Loading.vue";
 import TweenMax from "gsap";
 import { EventBus } from "~/assets/event.js";
+// import picture1 from "~/static/pictures/picture1.jpg";
+// import picture2 from "~/static/pictures/picture2.jpg";
+// import picture3 from "~/static/pictures/picture3.jpg";
+const picture1 = require("~/static/pictures/picture1.jpg");
+const picture2 = require("~/static/pictures/picture2.jpg");
+const picture3 = require("~/static/pictures/picture3.jpg");
 
 //Netlify CMS pour gérer le contenu ?
 
@@ -75,11 +81,14 @@ export default {
       emoji: "&#8986",
       contentBoxParams: {},
       speed: {},
-      timestamp: 0,
-      mY: 0
+      picture1: picture1,
+      picture2: picture2,
+      picture3: picture3
     };
   },
+  created() {},
   mounted() {
+    console.log(picture1, picture2, picture3);
     this.interval = setInterval(this.fftest.bind(this), 1000);
     this.contentBoxParams = this.$refs.content.getBoundingClientRect();
 
@@ -129,6 +138,8 @@ export default {
       // });
     },
     handleMouseOut(li) {
+      EventBus.$emit("mapPlaneOut");
+
       TweenMax.to(li, 0.5, {
         scale: 1,
         height: 60,

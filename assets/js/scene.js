@@ -75,16 +75,17 @@ class Sphere extends THREE.Object3D {
 
     this.time = 0;
     this.clock = new THREE.Clock();
-    
+
     if (process.browser) {
       this.vertexShader = require("@/assets/glsl/vertex.vs");
       this.fragmentShader = require("@/assets/glsl/fragment.fs");
     }
 
     EventBus.$on("mapPlane", this.mapPlane.bind(this));
+    EventBus.$on("mapPlaneOut", this.mapPlaneOut.bind(this));
 
     this.uniforms = {
-      time: {
+      u_time: {
         type: "f",
         value: 0.0
       },
@@ -92,14 +93,19 @@ class Sphere extends THREE.Object3D {
         type: "t",
         value: null
       },
-      resolution: {
+      u_resolution: {
         value: new THREE.Vector2(
           window.innerWidth * window.devicePixelRatio,
           window.innerHeight * window.devicePixelRatio
         )
       },
+      u_pourcent: {
+        type: "f",
+        value: 0.0,
+      }
     };
     let geometry = new THREE.PlaneBufferGeometry(20, 20, 32);
+
     let material = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
       vertexShader: this.vertexShader,
@@ -110,9 +116,19 @@ class Sphere extends THREE.Object3D {
   }
   update(t) {
     this.time = this.time + this.clock.getDelta();
-    this.uniforms.time.value = this.time
+
+    console.log(this.uniforms.u_time.value)
+    this.uniforms.u_time.value = this.time
   }
   mapPlane(texture) {
     this.uniforms.texture.value = new THREE.TextureLoader().load(texture);
+    TweenMax.to(this.uniforms.u_pourcent, 1, {
+      value: 1.0,
+    })
+  }
+  mapPlaneOut(texture) {
+    TweenMax.to(this.uniforms.u_pourcent, 1, {
+      value: 0.0,
+    })
   }
 }
