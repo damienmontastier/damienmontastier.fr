@@ -29,14 +29,11 @@ export default class Scene {
     this.scene = new THREE.Scene();
 
     // axes
-    this.scene.add(new THREE.AxesHelper(20))
+    // this.scene.add(new THREE.AxesHelper(20))
 
     this.sphere = new Sphere()
 
     this.scene.add(this.sphere)
-
-    var axesHelper = new THREE.AxesHelper(5);
-    this.scene.add(axesHelper);
 
     this.renderer = new THREE.WebGLRenderer({
       alpha: true
@@ -93,6 +90,10 @@ class Sphere extends THREE.Object3D {
         type: "t",
         value: null
       },
+      texturebis: {
+        type: "t",
+        value: null
+      },
       u_resolution: {
         value: new THREE.Vector2(
           window.innerWidth * window.devicePixelRatio,
@@ -104,7 +105,8 @@ class Sphere extends THREE.Object3D {
         value: 0.0,
       }
     };
-    let geometry = new THREE.PlaneBufferGeometry(20, 20, 32);
+    let geometry = new THREE.PlaneBufferGeometry(20, 20, 64, 64);
+    
 
     let material = new THREE.ShaderMaterial({
       uniforms: this.uniforms,
@@ -116,8 +118,6 @@ class Sphere extends THREE.Object3D {
   }
   update(t) {
     this.time = this.time + this.clock.getDelta();
-
-    console.log(this.uniforms.u_time.value)
     this.uniforms.u_time.value = this.time
   }
   mapPlane(texture) {
