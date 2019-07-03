@@ -15,11 +15,12 @@ void main(void) {
 
 
 	vec3 newPosition = position.xyz;
-	newPosition.z += sin(vUv.y*10.0+u_time)*2.0;
-	newPosition.x += sin(vUv.y*10.0+u_time)*2.0;
+	newPosition.z += sin(vUv.y*10.0+u_time)*1.0;
+	newPosition.x += sin(vUv.y*10.0+u_time)*1.0;
+	newPosition.y += sin(vUv.y*10.0+u_time)*1.0;
 	// newPosition.x += sin(vUv.y * 2.0);
 
-	gl_PointSize = 10.0;
+	gl_PointSize = 1.0;
 	gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
 }
 

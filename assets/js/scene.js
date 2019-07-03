@@ -24,7 +24,7 @@ export default class Scene {
 
     this.canvas = document.getElementById("canvas")
 
-    // this.controls = new OrbitControls(this.camera);
+    this.controls = new OrbitControls(this.camera);
 
     this.scene = new THREE.Scene();
 
@@ -105,7 +105,10 @@ class Sphere extends THREE.Object3D {
         value: 0.0,
       }
     };
-    let geometry = new THREE.PlaneBufferGeometry(20, 20, 64, 64);
+    // let geometry = new THREE.PlaneBufferGeometry(20, 20, 64, 64);
+    let geometry = new THREE.SphereBufferGeometry( 5, 128, 128 )
+    // let geometry = new THREE.BoxBufferGeometry( 20, 20, 20, 256, 256, 256, 256 );
+    
     
 
     let material = new THREE.ShaderMaterial({
@@ -113,7 +116,7 @@ class Sphere extends THREE.Object3D {
       vertexShader: this.vertexShader,
       fragmentShader: this.fragmentShader
     });
-    let plane = new THREE.Mesh(geometry, material);
+    let plane = new THREE.Points(geometry, material);
     this.add(plane);
   }
   update(t) {
